@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شهر لنت سردشت | نمایندگی رسمی گروتک</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt: #14161a;
+    --asphalt-2: #1d2026;
+    --steel: #2a2e35;
+    --steel-light: #3c414a;
+    --disc: #c9ccd3;
+    --ink: #eae7e0;
+    --ink-dim: #a7a9ad;
+    --hazard: #ff6a1a;
+    --hazard-dim: #d85812;
+    --brake-red: #c8203a;
+    --line: rgba(234,231,224,0.12);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--asphalt);
+    color:var(--ink);
+    font-family:'Vazirmatn', sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.02em; direction:ltr; unicode-bidi:isolate; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  ::selection{ background:var(--hazard); color:#14161a; }
+
+  /* subtle brushed-metal / grain background */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 6px);
+    opacity:0.5;
+  }
+
+  /* ---------- top strip ---------- */
+  .topstrip{
+    background:#0c0d10; border-bottom:1px solid var(--line);
+    font-size:13px; color:var(--ink-dim); position:relative; z-index:5;
+  }
+  .topstrip .wrap{ display:flex; justify-content:space-between; align-items:center; padding:8px 24px; gap:12px; flex-wrap:wrap; }
+  .topstrip .tel{ color:var(--hazard); font-weight:600; }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(20,22,26,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; padding:16px 24px; }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{ width:42px; height:42px; flex:none; }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.25; }
+  .brand-text b{ font-size:18px; font-weight:800; letter-spacing:0.01em; }
+  .brand-text span{ font-size:11.5px; color:var(--hazard); font-weight:600; }
+  nav{ display:flex; gap:28px; font-size:14.5px; font-weight:500; }
+  nav a{ color:var(--ink-dim); transition:color .15s; position:relative; }
+  nav a:hover{ color:var(--ink); }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:3px; font-weight:700; font-size:14.5px;
+    border:1px solid transparent; cursor:pointer; transition:.18s;
+  }
+  .btn-hazard{ background:var(--hazard); color:#161311; }
+  .btn-hazard:hover{ background:#ff7c34; transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--ink-dim); }
+  .header-cta{ display:flex; align-items:center; gap:12px; }
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; z-index:2; padding:96px 0 80px; overflow:hidden; }
+  .hero .wrap{ display:grid; grid-template-columns:1.1fr 0.9fr; align-items:center; gap:40px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--hazard);
+    border:1px solid rgba(255,106,26,0.35); background:rgba(255,106,26,0.08);
+    padding:6px 12px; border-radius:2px; margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--hazard); box-shadow:0 0 8px var(--hazard); }
+  h1{
+    font-size:clamp(38px, 5.4vw, 64px); font-weight:900; letter-spacing:-0.01em; line-height:1.12;
+  }
+  h1 .accent{ color:var(--hazard); }
+  .hero p.lead{ font-size:17.5px; color:var(--ink-dim); max-width:52ch; margin:22px 0 34px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-stats{ display:flex; gap:30px; margin-top:46px; flex-wrap:wrap; }
+  .hero-stats div b{ display:block; font-family:'JetBrains Mono',monospace; font-size:26px; color:var(--ink); }
+  .hero-stats div span{ font-size:12.5px; color:var(--ink-dim); }
+
+  /* rotating disc */
+  .disc-stage{ position:relative; display:flex; align-items:center; justify-content:center; }
+  .disc-glow{
+    position:absolute; width:340px; height:340px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,106,26,0.22), transparent 70%);
+    filter:blur(10px);
+  }
+  .disc{ width:320px; height:320px; animation:spin 14s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .caliper-glow{ animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    .disc{ animation:none; } .caliper-glow{ animation:none; }
+  }
+
+  /* ---------- trust strip ---------- */
+  .trust{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--asphalt-2); position:relative; z-index:2; }
+  .trust .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:22px; padding:26px 24px; }
+  .trust-item{ display:flex; align-items:center; gap:10px; font-size:14px; color:var(--ink-dim); }
+  .trust-item svg{ width:20px; height:20px; flex:none; color:var(--hazard); }
+  .trust-item b{ color:var(--ink); font-weight:700; }
+
+  /* ---------- section shell ---------- */
+  section{ position:relative; z-index:2; padding:88px 0; }
+  .section-head{ margin-bottom:48px; max-width:640px; }
+  .kicker{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--hazard); margin-bottom:12px; display:block; }
+  h2{ font-size:clamp(28px,3.4vw,38px); font-weight:800; letter-spacing:-0.01em; }
+  .section-head p{ color:var(--ink-dim); margin-top:14px; font-size:15.5px; }
+
+  /* ---------- products ---------- */
+  .grid-products{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .pcard{
+    background:var(--steel); border:1px solid var(--line); border-radius:4px; padding:26px;
+    position:relative; overflow:hidden; transition:.2s;
+  }
+  .pcard:hover{ border-color:rgba(255,106,26,0.4); transform:translateY(-3px); }
+  .pcard .code{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--hazard-dim); }
+  .pcard h3{ font-size:18.5px; font-weight:700; margin:14px 0 8px; }
+  .pcard p{ font-size:14px; color:var(--ink-dim); }
+  .pcard .icon{ width:34px; height:34px; color:var(--hazard); margin-bottom:6px; }
+  .pcard .price{ display:inline-block; margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--hazard); border-top:1px dashed var(--line); padding-top:12px; width:100%; }
+
+  /* ---------- grotech banner ---------- */
+  .grotech{
+    background:linear-gradient(120deg, var(--steel-light), var(--steel) 60%);
+    border:1px solid var(--line); border-radius:6px; padding:44px;
+    display:grid; grid-template-columns:1fr auto; align-items:center; gap:24px;
+  }
+  .grotech-badge{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px;
+    color:#14161a; background:var(--disc); padding:9px 16px; border-radius:2px; letter-spacing:0.03em;
+  }
+  .grotech h3{ font-size:24px; font-weight:800; margin:16px 0 8px; }
+  .grotech p{ color:var(--ink-dim); max-width:60ch; }
+
+  /* ---------- taxi banner ---------- */
+  .taxi{
+    background:linear-gradient(120deg, var(--brake-red), #8f1729);
+    border-radius:6px; padding:44px; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:28px;
+  }
+  .taxi svg{ width:56px; height:56px; color:#ffe9b8; flex:none; }
+  .taxi h3{ font-size:23px; font-weight:800; }
+  .taxi p{ color:rgba(255,255,255,0.85); margin-top:6px; font-size:14.5px; }
+  .taxi .btn{ background:#1a1416; color:#fff; white-space:nowrap; }
+
+  /* ---------- about ---------- */
+  .about{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:center; }
+  .about-visual{
+    aspect-ratio:4/5; border-radius:6px; background:
+      radial-gradient(circle at 30% 20%, rgba(255,106,26,0.18), transparent 55%),
+      repeating-linear-gradient(45deg, #23262d 0 14px, #1c1f25 14px 28px);
+    border:1px solid var(--line); position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; padding:26px;
+  }
+  .about-visual .tag{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-dim); background:rgba(20,22,26,0.7); padding:8px 12px; border-radius:2px; }
+  .about-list{ list-style:none; margin-top:26px; display:flex; flex-direction:column; gap:16px; }
+  .about-list li{ display:flex; gap:14px; align-items:flex-start; font-size:15px; color:var(--ink-dim); }
+  .about-list b{ color:var(--ink); }
+  .about-list .num{ font-family:'JetBrains Mono',monospace; color:var(--hazard); font-weight:700; flex:none; }
+  .manager-card{
+    margin-top:30px; border:1px solid var(--line); border-radius:5px; padding:18px 20px;
+    display:flex; justify-content:space-between; align-items:center; background:var(--asphalt-2);
+  }
+  .manager-card span{ display:block; font-size:12.5px; color:var(--ink-dim); }
+  .manager-card b{ font-size:16px; }
+
+  /* ---------- AI section ---------- */
+  .ai-section{
+    background:var(--asphalt-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .ai-inner{ display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; }
+  .ai-inner h2{ margin-bottom:14px; }
+  .ai-features{ list-style:none; margin-top:24px; display:flex; flex-direction:column; gap:12px; }
+  .ai-features li{ display:flex; gap:10px; align-items:center; font-size:14.5px; color:var(--ink-dim); }
+  .ai-features svg{ width:18px; height:18px; color:var(--hazard); flex:none; }
+  .ai-preview{
+    border:1px solid var(--line); border-radius:8px; background:var(--asphalt); overflow:hidden;
+  }
+  .ai-preview .bar{ padding:12px 16px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; font-size:13px; color:var(--ink-dim); }
+  .ai-preview .bar .pulse{ width:8px; height:8px; border-radius:50%; background:#3ad672; animation:pulse 2s infinite; }
+  .ai-preview .bubble{ margin:16px; padding:12px 14px; background:var(--steel); border-radius:8px 8px 8px 2px; font-size:14px; max-width:85%; }
+  .ai-preview .bubble.me{ margin-inline-start:auto; background:var(--hazard); color:#161311; border-radius:8px 8px 2px 8px; }
+
+  /* ---------- contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .cbox{ border:1px solid var(--line); border-radius:6px; padding:28px; background:var(--steel); }
+  .cbox h3{ font-size:15px; color:var(--ink-dim); font-weight:600; margin-bottom:10px; }
+  .cbox .value{ font-size:17px; font-weight:700; line-height:1.6; }
+  .cbox .value.tel{ color:var(--hazard); font-family:'JetBrains Mono',monospace; }
+  .map-box{ grid-column:1 / -1; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .map-box iframe{ width:100%; height:340px; border:0; filter:grayscale(0.4) invert(0.92) contrast(0.9); }
+
+  footer{ border-top:1px solid var(--line); padding:34px 0; text-align:center; color:var(--ink-dim); font-size:13px; position:relative; z-index:2; }
+  footer b{ color:var(--ink); }
+
+  /* ---------- AI chat widget ---------- */
+  #ai-fab{
+    position:fixed; bottom:26px; left:26px; z-index:100;
+    background:var(--hazard); color:#161311; border:none; border-radius:50px;
+    padding:14px 20px; font-family:'Vazirmatn',sans-serif; font-weight:700; font-size:14.5px;
+    display:flex; align-items:center; gap:10px; cursor:pointer;
+    box-shadow:0 8px 24px rgba(255,106,26,0.35); transition:.2s;
+  }
+  #ai-fab:hover{ transform:translateY(-2px); }
+  #ai-fab svg{ width:20px; height:20px; }
+  #ai-panel{
+    position:fixed; bottom:96px; left:26px; z-index:101; width:360px; max-width:calc(100vw - 40px);
+    height:480px; max-height:70vh; background:var(--asphalt-2); border:1px solid var(--line); border-radius:12px;
+    display:none; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  #ai-panel.open{ display:flex; }
+  .ai-head{ padding:14px 16px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; background:var(--asphalt); }
+  .ai-head .who{ display:flex; align-items:center; gap:10px; font-size:14px; font-weight:700; }
+  .ai-head .who .pulse{ width:8px; height:8px; border-radius:50%; background:#3ad672; }
+  .ai-close{ background:none; border:none; color:var(--ink-dim); cursor:pointer; font-size:18px; line-height:1; }
+  #ai-messages{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; font-size:14px; }
+  .msg{ padding:10px 13px; border-radius:10px 10px 10px 2px; background:var(--steel); max-width:88%; line-height:1.6; }
+  .msg.user{ background:var(--hazard); color:#161311; align-self:flex-end; border-radius:10px 10px 2px 10px; }
+  .msg.bot{ align-self:flex-start; }
+  .msg.typing{ color:var(--ink-dim); font-style:normal; }
+  #ai-inputbar{ display:flex; gap:8px; padding:12px; border-top:1px solid var(--line); background:var(--asphalt); }
+  #ai-input{
+    flex:1; background:var(--steel); border:1px solid var(--line); border-radius:8px; color:var(--ink);
+    padding:10px 12px; font-family:'Vazirmatn',sans-serif; font-size:14px; outline:none; resize:none;
+  }
+  #ai-input:focus{ border-color:var(--hazard); }
+  #ai-send{ background:var(--hazard); border:none; color:#161311; border-radius:8px; padding:0 16px; cursor:pointer; font-weight:700; }
+  #ai-send:disabled{ opacity:0.5; cursor:default; }
+
+  @media (max-width: 920px){
+    nav{ display:none; }
+    .hero .wrap{ grid-template-columns:1fr; }
+    .disc-stage{ order:-1; margin-bottom:20px; }
+    .disc, .disc-glow{ width:220px; height:220px; }
+    .grid-products{ grid-template-columns:1fr 1fr; }
+    .grotech, .taxi{ grid-template-columns:1fr; text-align:center; }
+    .taxi svg{ margin:0 auto; }
+    .about{ grid-template-columns:1fr; }
+    .ai-inner{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    #ai-panel{ width:calc(100vw - 32px); left:16px; bottom:88px; }
+    #ai-fab{ left:16px; bottom:16px; }
+  }
+  @media (max-width: 560px){
+    .grid-products{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topstrip">
+  <div class="wrap">
+    <span>سردشت، بلوار هفت‌تیر، پایین‌تر از کمیته امداد، روبروی ترمینال سابق</span>
+    <a class="tel mono" href="tel:09143947535">📞 09143947535</a>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="21" stroke="#ff6a1a" stroke-width="3"/>
+        <circle cx="24" cy="24" r="7" fill="#ff6a1a"/>
+        <circle cx="24" cy="9" r="2.4" fill="#c9ccd3"/>
+        <circle cx="24" cy="39" r="2.4" fill="#c9ccd3"/>
+        <circle cx="9" cy="24" r="2.4" fill="#c9ccd3"/>
+        <circle cx="39" cy="24" r="2.4" fill="#c9ccd3"/>
+      </svg>
+      <div class="brand-text">
+        <b>شهر لنت سردشت</b>
+        <span>نمایندگی رسمی گروتک</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#products">محصولات</a>
+      <a href="#cars">لنت خودروها</a>
+      <a href="#grotech">نمایندگی گروتک</a>
+      <a href="#taxi">تخفیف تاکسی</a>
+      <a href="#about">درباره ما</a>
+      <a href="#contact">تماس و آدرس</a>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-hazard" href="tel:09143947535">تماس فوری</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> فروشگاه تخصصی سیستم ترمز خودرو</div>
+      <h1>لنت اصل، ترمز <span class="accent">مطمئن</span>.</h1>
+      <p class="lead">شهر لنت سردشت، از لنت سبک تا سنگین، از دیسک تا روغن ترمز؛ همه‌چیزِ سیستم ترمز خودرو، موتورسیکلت و کامیون، زیر یک سقف. نمایندگی رسمی گروتک در سردشت.</p>
+      <div class="hero-actions">
+        <a class="btn btn-hazard" href="tel:09143947535">تماس با فروشگاه</a>
+        <a class="btn btn-ghost" href="#products">مشاهده محصولات</a>
+      </div>
+      <div class="hero-stats">
+        <div><b class="mono">100%</b><span>اصالت کالا</span></div>
+        <div><b class="mono">GT</b><span>نمایندگی گروتک</span></div>
+        <div><b class="mono">10%</b><span>تخفیف ویژه تاکسی</span></div>
+      </div>
+    </div>
+    <div class="disc-stage">
+      <div class="disc-glow"></div>
+      <svg class="disc" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#3c414a" stroke-width="2"/>
+        <circle cx="100" cy="100" r="80" fill="#20232a" stroke="#3c414a" stroke-width="2"/>
+        <g stroke="#4a5058" stroke-width="1.6">
+          <circle cx="100" cy="100" r="66"/>
+          <circle cx="100" cy="100" r="52"/>
+        </g>
+        <g fill="#14161a">
+          <circle cx="100" cy="34" r="5"/><circle cx="149" cy="61" r="5"/>
+          <circle cx="149" cy="139" r="5"/><circle cx="100" cy="166" r="5"/>
+          <circle cx="51" cy="139" r="5"/><circle cx="51" cy="61" r="5"/>
+        </g>
+        <g stroke="#585e68" stroke-width="1">
+          <line x1="100" y1="100" x2="100" y2="20"/>
+          <line x1="100" y1="100" x2="169" y2="61"/>
+          <line x1="100" y1="100" x2="169" y2="139"/>
+          <line x1="100" y1="100" x2="100" y2="180"/>
+          <line x1="100" y1="100" x2="31" y2="139"/>
+          <line x1="100" y1="100" x2="31" y2="61"/>
+        </g>
+        <circle cx="100" cy="100" r="30" fill="#2a2e35" stroke="#4a5058" stroke-width="2"/>
+        <circle cx="100" cy="100" r="9" fill="#14161a"/>
+      </svg>
+      <svg class="caliper-glow" viewBox="0 0 200 200" style="position:absolute; width:320px; height:320px;">
+        <path d="M100 10 A90 90 0 0 1 190 100" fill="none" stroke="#ff6a1a" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap">
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg><span><b>ضمانت اصالت</b> کالا</span></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>پاسخ‌گویی <b>سریع</b></span></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-6h14l2 6M5 12v6h14v-6M9 18v2M15 18v2"/></svg><span>سرویس سبک و <b>سنگین</b></span></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg><span>نمایندگی رسمی <b>گروتک</b></span></div>
+  </div>
+</div>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// محصولات</span>
+      <h2>از صفر تا صد سیستم ترمز</h2>
+      <p>هر آنچه برای سرویس کامل ترمز خودروی سبک، سنگین و موتورسیکلت نیاز دارید، در شهر لنت سردشت موجود است.</p>
+      <div class="eyebrow" style="margin-top:16px;"><span class="dot"></span> قیمت‌ها از ۴۵۰ هزار تومان به بالا، متناسب با نوع خودرو</div>
+    </div>
+    <div class="grid-products">
+
+      <div class="pcard">
+        <span class="code mono">GT-LT-01</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="8" width="16" height="8" rx="2"/><path d="M4 12h16"/></svg>
+        <h3>لنت ترمز سبک</h3>
+        <p>انواع لنت ترمز جلو و عقب پراید، پژو، سمند، تیبا و خودروهای سواری داخلی و خارجی.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-LT-02</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="9" width="20" height="7" rx="1.5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        <h3>لنت ترمز سنگین</h3>
+        <p>لنت کامیون، اتوبوس، کامیونت و ماشین‌آلات سنگین با استاندارد صنعتی.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-LT-03</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+        <h3>لنت موتورسیکلت</h3>
+        <p>لنت انواع موتورسیکلت‌های کاربراتوری و انژکتوری، اصل و باکیفیت.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-DS-04</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg>
+        <h3>دیسک و صفحه ترمز</h3>
+        <p>دیسک ترمز جلو و عقب، صفحه و کاسه ترمز برای طیف وسیعی از خودروها.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-OL-05</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l5 9a5 5 0 11-10 0l5-9z"/></svg>
+        <h3>روغن و مایع ترمز</h3>
+        <p>روغن ترمز استاندارد DOT3 و DOT4 و مکمل‌های سیستم ترمز.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-AC-06</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M8 8v8M16 8v8"/></svg>
+        <h3>لوازم جانبی ترمز</h3>
+        <p>سیم ترمز دستی، شیلنگ ترمز، کالیپر و سایر قطعات یدکی سیستم ترمز.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="grotech">
+  <div class="wrap">
+    <div class="grotech">
+      <div>
+        <span class="grotech-badge mono">OFFICIAL DEALER — GROTECH</span>
+        <h3>نمایندگی رسمی برند گروتک در سردشت</h3>
+        <p>شهر لنت سردشت به‌صورت رسمی نماینده فروش محصولات برند گروتک است؛ یعنی خرید لنت و قطعات ترمز با ضمانت اصالت کالا و کیفیت تضمین‌شده، مستقیم از منبع معتبر.</p>
+      </div>
+      <a class="btn btn-hazard" href="tel:09143947535">استعلام محصولات گروتک</a>
+    </div>
+  </div>
+</section>
+
+<section id="taxi">
+  <div class="wrap">
+    <div class="taxi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 11l1.5-5h11L19 11M4 11h16v6a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H7v1a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/><circle cx="7.5" cy="15.5" r="1.2"/><circle cx="16.5" cy="15.5" r="1.2"/></svg>
+      <div>
+        <h3>۱۰٪ تخفیف ویژه رانندگان تاکسی</h3>
+        <p>برای همکاران راننده تاکسی، در خرید انواع لنت و قطعات ترمز <b>۱۰ درصد تخفیف</b> در نظر گرفته شده است. کافیست کارت تاکسیرانی همراه داشته باشید.</p>
+      </div>
+      <a class="btn" href="tel:09143947535">اطلاع از تخفیف</a>
+    </div>
+  </div>
+</section>
+
+<section id="cars">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// لنت اختصاصی خودروها</span>
+      <h2>لنت مخصوص هر خودرو، موجود است</h2>
+      <p>لنت اختصاصی برای انواع خودروهای داخلی، وارداتی، سنگین و موتورسیکلت. اگر مدل خودروی شما در لیست نیست، از دستیار هوشمند بپرسید یا تماس بگیرید.</p>
+    </div>
+    <div class="grid-products">
+
+      <div class="pcard">
+        <span class="code mono">GT-PR-11</span>
+        <h3>پراید ۱۱۱ / ۱۳۱ / ۱۴۱</h3>
+        <p>لنت جلو و عقب پراید، مناسب رانندگی شهری و کارکرد بالا.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-PJ-20</span>
+        <h3>پژو ۲۰۶ / ۲۰۷ / پارس</h3>
+        <p>لنت اختصاصی خانواده پژو، با ترمزگیری نرم و کم‌صدا.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-SM-40</span>
+        <h3>سمند (LX) / سمند سورن</h3>
+        <p>لنت جلو و عقب سمند، مقاوم در برابر حرارت بالا.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-TB-01</span>
+        <h3>تیبا ۱ / تیبا ۲</h3>
+        <p>لنت استاندارد تیبا، عمر بالا و ترمزگیری یکنواخت.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-DN-01</span>
+        <h3>دنا / دنا پلاس</h3>
+        <p>لنت اختصاصی دنا با استاندارد کارخانه‌ای.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-RN-90</span>
+        <h3>رانا / ال۹۰ (L90)</h3>
+        <p>لنت جلو و عقب رانا و ال۹۰، مناسب مسیرهای بین‌شهری و تاکسی.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-QK-01</span>
+        <h3>کوییک / شاهین</h3>
+        <p>لنت اختصاصی محصولات جدید سایپا.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-HY-01</span>
+        <h3>هیوندای (توسان، النترا، سانتافه، اکسنت)</h3>
+        <p>لنت اختصاصی خودروهای هیوندای، اصل و باکیفیت.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-KI-01</span>
+        <h3>کیا (سراتو، اسپورتیج، اپتیما، ریو)</h3>
+        <p>لنت اختصاصی خودروهای کیا با کارکرد بالا.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-TY-01</span>
+        <h3>تویوتا (کمری، کرولا، لندکروز، پرادو)</h3>
+        <p>لنت اختصاصی خانواده تویوتا، مناسب کارکرد شهری و جاده‌ای.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-HD-01</span>
+        <h3>هوندا (سیویک، سی‌آر‌وی)</h3>
+        <p>لنت اختصاصی هوندا سیویک و سی‌آر‌وی.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-NS-01</span>
+        <h3>نیسان (تیانا، ایکس‌تریل، جوک)</h3>
+        <p>لنت اختصاصی محصولات نیسان.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-EU-01</span>
+        <h3>بنز و بی‌ام‌و (کلاس C/E، سری ۳/۵)</h3>
+        <p>لنت اختصاصی خودروهای اروپایی، کیفیت بالا و ترمزگیری دقیق.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-CH-01</span>
+        <h3>خودروهای چینی (MVM، JAC، چانگان، برلیانس، لیفان، جیلی)</h3>
+        <p>لنت اختصاصی خودروهای چینی رایج در بازار ایران.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-HV-01</span>
+        <h3>کامیون و اتوبوس</h3>
+        <p>لنت بنز، ایسوزو، وولوو و سایر خودروهای سنگین و نیمه‌سنگین.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+      <div class="pcard">
+        <span class="code mono">GT-DS-04</span>
+        <h3>دیسک و صفحه ترمز اختصاصی</h3>
+        <p>دیسک و صفحه ترمز مخصوص پراید، پژو، سمند، تیبا، دنا، رانا، ال۹۰ و خودروهای وارداتی.</p>
+        <span class="price">از ۴۵۰,۰۰۰ تومان به بالا</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-visual">
+      <span class="tag mono">EST. SARDASHT</span>
+    </div>
+    <div>
+      <span class="kicker">// درباره ما</span>
+      <h2>تخصص ما، امنیت جاده شماست</h2>
+      <ul class="about-list">
+        <li><span class="num mono">01</span><span><b>تنوع کامل کالا</b> — از لنت سواری تا سنگین و موتورسیکلت، همه در یک‌جا.</span></li>
+        <li><span class="num mono">02</span><span><b>اصالت تضمینی</b> — به‌عنوان نماینده گروتک، کالای اورجینال عرضه می‌کنیم.</span></li>
+        <li><span class="num mono">03</span><span><b>مشاوره تخصصی</b> — راهنمایی برای انتخاب لنت مناسب خودرو و نحوه رانندگی شما.</span></li>
+        <li><span class="num mono">04</span><span><b>قیمت منصفانه</b> — همراه با تخفیف ویژه برای رانندگان تاکسی.</span></li>
+      </ul>
+      <div class="manager-card">
+        <div><span>مدیریت فروشگاه</span><b>آمید سلیمان‌پور</b></div>
+        <a class="btn btn-ghost mono" href="tel:09143947535">09143947535</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ai-section">
+  <div class="wrap ai-inner">
+    <div>
+      <span class="kicker">// دستیار هوشمند</span>
+      <h2>هر سوالی داری، از دستیار هوشمند بپرس</h2>
+      <p style="color:var(--ink-dim); font-size:15.5px;">دستیار هوش مصنوعی شهر لنت سردشت به سوالات شما درباره نوع لنت مناسب، موجودی، آدرس و تخفیف‌ها به‌صورت آنی پاسخ می‌دهد.</p>
+      <ul class="ai-features">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> پاسخ‌گویی ۲۴ ساعته و آنی</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> راهنمایی برای انتخاب لنت مناسب</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> اطلاع از تخفیف‌ها و آدرس فروشگاه</li>
+      </ul>
+      <div style="margin-top:26px;">
+        <button class="btn btn-hazard" onclick="toggleAI(true)">شروع گفتگو با دستیار</button>
+      </div>
+    </div>
+    <div class="ai-preview">
+      <div class="bar"><span class="pulse"></span> دستیار هوشمند — آنلاین</div>
+      <div class="bubble">سلام! برای موتور پژو ۲۰۶ چه لنتی پیشنهاد می‌کنید؟</div>
+      <div class="bubble me">لنت گروتک مدل استاندارد پژو ۲۰۶ رو موجود داریم، اصل و با ضمانت. می‌خواید محفوظش کنیم؟</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">// تماس و آدرس</span>
+      <h2>سر بزنید یا تماس بگیرید</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="cbox">
+        <h3>آدرس فروشگاه</h3>
+        <div class="value">سردشت، بلوار هفت‌تیر، پایین‌تر از کمیته امداد، روبروی ترمینال سابق</div>
+      </div>
+      <div class="cbox">
+        <h3>شماره تماس</h3>
+        <a class="value tel" href="tel:09143947535">0914 394 7535</a>
+      </div>
+      <div class="cbox">
+        <h3>مدیریت</h3>
+        <div class="value">آمید سلیمان‌پور</div>
+      </div>
+      <div class="cbox">
+        <h3>نمایندگی</h3>
+        <div class="value">نمایندگی رسمی گروتک</div>
+      </div>
+      <div class="map-box">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=%D8%B3%D8%B1%D8%AF%D8%B4%D8%AA%20%D8%A8%D9%84%D9%88%D8%A7%D8%B1%20%D9%87%D9%81%D8%AA%20%D8%AA%DB%8C%D8%B1&z=15&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>شهر لنت سردشت</b> — نمایندگی رسمی گروتک · مدیریت: آمید سلیمان‌پور · تماس: <span class="mono">09143947535</span></p>
+  </div>
+</footer>
+
+<!-- AI Assistant Widget -->
+<button id="ai-fab" onclick="toggleAI()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+  دستیار هوشمند
+</button>
+
+<div id="ai-panel">
+  <div class="ai-head">
+    <div class="who"><span class="pulse"></span> دستیار هوشمند شهر لنت</div>
+    <button class="ai-close" onclick="toggleAI(false)">✕</button>
+  </div>
+  <div id="ai-messages"></div>
+  <div id="ai-inputbar">
+    <textarea id="ai-input" rows="1" placeholder="سوال خود را بنویسید..."></textarea>
+    <button id="ai-send" onclick="sendAI()">ارسال</button>
+  </div>
+</div>
+
+<script>
+  const SHOP_SYSTEM_PROMPT = `شما دستیار هوشمند فروشگاه لنت‌فروشی «شهر لنت سردشت» هستید.
+اطلاعات فروشگاه:
+- آدرس: سردشت، بلوار هفت‌تیر، پایین‌تر از کمیته امداد، روبروی ترمینال سابق.
+- مدیریت: آقای آمید سلیمان‌پور.
+- تلفن تماس: 09143947535.
+- این فروشگاه نمایندگی رسمی برند «گروتک» (Grotech) است.
+- محصولات: انواع لنت ترمز خودروهای سبک، لنت ترمز سنگین (کامیون/اتوبوس)، لنت موتورسیکلت، دیسک و صفحه ترمز، روغن و مایع ترمز (DOT3/DOT4)، و لوازم جانبی سیستم ترمز.
+- برای رانندگان تاکسی تخفیف ویژه در نظر گرفته شده است (با ارائه کارت تاکسیرانی).
+
+لیست لنت اختصاصی خودروها (کد کالای گروتک) — وقتی مشتری نام خودرویش را می‌گوید، دقیقاً کد و نام مرتبط را از همین لیست بگو:
+- پراید ۱۱۱ / ۱۳۱ / ۱۴۱ → کد GT-PR-11، لنت جلو و عقب مخصوص رانندگی شهری.
+- پژو ۲۰۶ / ۲۰۷ / پارس → کد GT-PJ-20، ترمزگیری نرم و کم‌صدا.
+- سمند LX / سمند سورن → کد GT-SM-40، مقاوم در برابر حرارت بالا.
+- تیبا ۱ / تیبا ۲ → کد GT-TB-01، عمر بالا.
+- دنا / دنا پلاس → کد GT-DN-01، استاندارد کارخانه‌ای.
+- رانا / ال۹۰ (L90) → کد GT-RN-90، مناسب مسیر بین‌شهری و تاکسی.
+- کوییک / شاهین → کد GT-QK-01.
+- خودروهای وارداتی (هیوندای توسان/النترا، کیا سراتو/اسپورتیج، تویوتا کمری/کرولا) → کد GT-IM-01.
+- کامیون، اتوبوس، بنز، ایسوزو، وولوو → کد GT-HV-01، لنت سنگین صنعتی.
+- موتورسیکلت‌های کاربراتوری و انژکتوری → از دسته GT-LT-03.
+اگر مدل خودرویی که مشتری می‌پرسد در این لیست نبود، صادقانه بگو که باید موجودی دقیق آن را با تماس تلفنی 09143947535 بررسی کنند؛ کد یا مشخصات ساختگی نساز.
+
+وظیفه شما: پاسخ کوتاه، دوستانه و حرفه‌ای به فارسی به سوالات مشتریان درباره محصولات، لنت اختصاصی خودروی آن‌ها، نحوه تشخیص نیاز به تعویض لنت، آدرس، ساعات کاری و تخفیف‌ها. برای قیمت دقیق یا موجودی لحظه‌ای، همیشه پیشنهاد بده مشتری با شماره 09143947535 تماس بگیرد. هرگز اطلاعات نادرست درباره برند یا فروشگاه نساز.`;
+
+  let aiHistory = [];
+  let aiOpen = false;
+
+  function toggleAI(force){
+    aiOpen = force !== undefined ? force : !aiOpen;
+    document.getElementById('ai-panel').classList.toggle('open', aiOpen);
+    if(aiOpen && document.getElementById('ai-messages').children.length === 0){
+      addMsg('bot', 'سلام 👋 به شهر لنت سردشت خوش اومدید. من دستیار هوشمند این فروشگاهم، هر سوالی درباره لنت، ترمز، آدرس یا تخفیف‌ها دارید بپرسید.');
+    }
+  }
+
+  function addMsg(role, text){
+    const box = document.getElementById('ai-messages');
+    const div = document.createElement('div');
+    div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    return div;
+  }
+
+  // پایگاه دانش دستیار — کاملاً محلی و بدون نیاز به اتصال بیرونی،
+  // پس روی هر هاستی به‌درستی و همیشه کار می‌کند.
+  const KB = [
+    { kw:['پراید','۱۱۱','۱۳۱','۱۴۱','111','131','141'],
+      a:'برای پراید ۱۱۱ / ۱۳۱ / ۱۴۱ لنت گروتک با کد GT-PR-11 موجوده؛ لنت جلو و عقب، مناسب رانندگی شهری. برای تاییدِ موجودی لحظه‌ای با 09143947535 تماس بگیرید.' },
+    { kw:['پژو','206','207','۲۰۶','۲۰۷','پارس'],
+      a:'برای پژو ۲۰۶ / ۲۰۷ / پارس لنت گروتک کد GT-PJ-20 موجوده؛ ترمزگیری نرم و کم‌صدا.' },
+    { kw:['سمند','سورن','lx','ال ایکس'],
+      a:'برای سمند LX و سمند سورن لنت گروتک کد GT-SM-40 موجوده؛ مقاوم در برابر حرارت بالا.' },
+    { kw:['تیبا','tiba'],
+      a:'برای تیبا ۱ و تیبا ۲ لنت گروتک کد GT-TB-01 موجوده؛ عمر بالا و ترمزگیری یکنواخت.' },
+    { kw:['دنا','dena'],
+      a:'برای دنا و دنا پلاس لنت گروتک کد GT-DN-01 با استاندارد کارخانه‌ای موجوده.' },
+    { kw:['رانا','ال۹۰','l90','رانا پلاس'],
+      a:'برای رانا و ال۹۰ (L90) لنت گروتک کد GT-RN-90 موجوده؛ مناسب مسیرهای بین‌شهری و تاکسی.' },
+    { kw:['کوییک','quick','شاهین','shahin'],
+      a:'برای کوییک و شاهین لنت گروتک کد GT-QK-01 موجوده.' },
+    { kw:['هیوندای','توسان','النترا','سانتافه','اکسنت'],
+      a:'برای هیوندای توسان، النترا، سانتافه و اکسنت لنت گروتک کد GT-HY-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['کیا','سراتو','اسپورتیج','اپتیما','ریو'],
+      a:'برای کیا سراتو، اسپورتیج، اپتیما و ریو لنت گروتک کد GT-KI-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['تویوتا','کمری','کرولا','لندکروز','پرادو'],
+      a:'برای تویوتا کمری، کرولا، لندکروز و پرادو لنت گروتک کد GT-TY-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['هوندا سیویک','سیویک','سی آر وی','crv','هوندا'],
+      a:'برای هوندا سیویک و سی‌آر‌وی لنت گروتک کد GT-HD-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['نیسان','تیانا','ایکس تریل','جوک'],
+      a:'برای نیسان تیانا، ایکس‌تریل و جوک لنت گروتک کد GT-NS-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['بی ام و','بنز کلاس','مرسدس','bmw','سری 3','سری 5','کلاس c','کلاس e'],
+      a:'برای بنز کلاس C/E و بی‌ام‌و سری ۳/۵ لنت اروپایی گروتک کد GT-EU-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['چینی','mvm','jac','چانگان','برلیانس','لیفان','جیلی'],
+      a:'برای خودروهای چینی مثل MVM، JAC، چانگان، برلیانس، لیفان و جیلی لنت گروتک کد GT-CH-01 موجوده، از ۴۵۰,۰۰۰ تومان به بالا.' },
+    { kw:['وارداتی','خارجی'],
+      a:'برای خودروهای خارجی (هیوندای، کیا، تویوتا، هوندا، نیسان، بنز، بی‌ام‌و و خودروهای چینی) لنت اختصاصی موجوده. اسم دقیق برند یا مدل خودروتون رو بگید تا کد لنت مناسبش رو بهتون بگم.' },
+    { kw:['کامیون','اتوبوس','بنز','ایسوزو','وولوو','سنگین','تریلی'],
+      a:'برای کامیون، اتوبوس، بنز، ایسوزو و وولوو لنت سنگین صنعتی گروتک کد GT-HV-01 موجوده.' },
+    { kw:['موتور','موتورسیکلت','هوندا','پیشرو','احسان'],
+      a:'برای موتورسیکلت‌های کاربراتوری و انژکتوری لنت‌های دسته GT-LT-03 موجوده.' },
+    { kw:['روغن ترمز','مایع ترمز','dot3','dot4','دوت'],
+      a:'روغن ترمز استاندارد DOT3 و DOT4 و مکمل‌های سیستم ترمز رو موجود داریم.' },
+    { kw:['دیسک','صفحه ترمز','کاسه ترمز'],
+      a:'دیسک و صفحه ترمز اختصاصی برای پراید، پژو، سمند، تیبا، دنا، رانا/ال۹۰ و خودروهای وارداتی موجوده (کد GT-DS-04)، قیمت از ۴۵۰,۰۰۰ تومان به بالا بسته به مدل خودرو.' },
+    { kw:['تخفیف','تاکسی','تاکسیرانی'],
+      a:'برای رانندگان تاکسی ۱۰٪ تخفیف ویژه در نظر گرفته شده؛ کافیه کارت تاکسیرانی همراه داشته باشید. برای جزئیات بیشتر با 09143947535 تماس بگیرید.' },
+    { kw:['آدرس','کجا','لوکیشن','نشانی'],
+      a:'آدرس ما: سردشت، بلوار هفت‌تیر، پایین‌تر از کمیته امداد، روبروی ترمینال سابق.' },
+    { kw:['تلفن','شماره','تماس','موبایل'],
+      a:'شماره تماس فروشگاه: 09143947535' },
+    { kw:['گروتک','نمایندگی','اصل','اورجینال'],
+      a:'شهر لنت سردشت نمایندگی رسمی برند گروتک است؛ یعنی خرید با ضمانت اصالت کالا.' },
+    { kw:['مدیر','مدیریت','صاحب'],
+      a:'مدیریت فروشگاه با آقای آمید سلیمان‌پور است.' },
+    { kw:['قیمت','هزینه','چند'],
+      a:'قیمت لنت و دیسک/صفحه ترمز از ۴۵۰,۰۰۰ تومان به بالا شروع می‌شه و بسته به مدل خودرو متفاوته. برای قیمت دقیق و به‌روز، لطفاً با شماره 09143947535 تماس بگیرید.' },
+    { kw:['علائم','خرابی','تعویض','چه زمانی','صدا میده','لرزش'],
+      a:'اگر هنگام ترمز صدای جیغ یا سایش فلزی می‌شنوید، پدال ترمز لرزش داره، یا مسافت ترمز طولانی‌تر شده، وقت تعویض لنته. برای بررسی رایگان به فروشگاه سر بزنید.' },
+    { kw:['ساعت کار','ساعت کاری','باز','تعطیل'],
+      a:'برای اطلاع دقیق از ساعت کاری فروشگاه در روزهای مختلف، با شماره 09143947535 تماس بگیرید.' },
+    { kw:['سلام','درود','وقت بخیر'],
+      a:'سلام 👋 خوش اومدید به شهر لنت سردشت. درباره کدوم خودرو یا قطعه سوال دارید؟' },
+  ];
+
+  function localAnswer(text){
+    const t = text.toLowerCase();
+    for(const item of KB){
+      if(item.kw.some(k => t.includes(k))) return item.a;
+    }
+    return 'برای این مورد بهتره مستقیم با شماره 09143947535 تماس بگیرید تا همکاران ما دقیق راهنماییتون کنن. همچنین می‌تونید نام خودروتون رو بنویسید تا کد لنت مناسبش رو بهتون بگم.';
+  }
+
+  function sendAI(){
+    const input = document.getElementById('ai-input');
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+    addMsg('user', text);
+
+    const sendBtn = document.getElementById('ai-send');
+    sendBtn.disabled = true;
+    const typingEl = addMsg('bot', 'در حال تایپ...');
+    typingEl.classList.add('typing');
+
+    setTimeout(function(){
+      typingEl.remove();
+      addMsg('bot', localAnswer(text));
+      sendBtn.disabled = false;
+    }, 500);
+  }
+
+  document.getElementById('ai-input').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendAI();
+    }
+  });
+</script>
+
+</body>
+</html>
